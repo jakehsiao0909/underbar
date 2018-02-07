@@ -156,7 +156,7 @@
 
   // Reduces an array or object to a single value by repetitively calling
   // iterator(accumulator, item) for each item. accumulator should be
-  // the return value of the previous iterator call.
+  // the return value of the previous iterator call..
   //  
   // You can pass in a starting value for the accumulator as the third argument
   // to reduce. If no starting value is passed, the first element is used as
