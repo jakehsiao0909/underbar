@@ -278,11 +278,23 @@
         }
       }
     }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    if (arguments.length > 1) {
+      for (var i = 0; i < arguments.length; i++) {
+        var object = arguments[i];
+        for (var prop in object) {
+          if (!obj.hasOwnProperty(prop)) {
+            obj[prop] = object[prop];
+          }
+        }
+      }
+    }
+    return obj;
   };
 
 
@@ -326,6 +338,15 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var result = {};
+
+    return function() {
+      var prop = Array.prototype.slice.call(arguments);
+      if (!(result[prop])) {
+        result[prop] = func.apply(this, arguments);
+      }
+      return result[prop];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -335,6 +356,16 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = [];
+    if (arguments.length > 2) {
+      for (var i = 2; i < arguments.length; i++) {
+        args[i - 2] = arguments[i];
+      }
+      setTimeout(func.apply(this,args), wait);
+    }
+    else {
+      setTimeout(func, wait);
+    }
   };
 
 
@@ -349,6 +380,15 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var newArray = array.slice(0,array.length);
+    var shuffled = [];
+    var index = 0;
+    for (var i = 0; i <= newArray.length+1; i++) {
+      index = Math.floor(Math.random()*newArray.length)
+      shuffled.push(newArray[index]);
+      newArray.splice(index, 1);
+    }
+    return shuffled;
   };
 
 
