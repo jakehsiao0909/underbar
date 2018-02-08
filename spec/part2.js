@@ -460,7 +460,7 @@
         memoSpy([1,2,3]);
         expect(spy).to.have.been.calledOnce;
         memoSpy(1,2,3);
-        expect(spy).to.have.been.calledTwice;
+        expect(spy).to.have.been.calledOnce;
       });
     });
 
